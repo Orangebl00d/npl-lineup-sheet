@@ -1,0 +1,19 @@
+# App Structure - NPL Lineup Sheet
+# Last updated: 2026-10-07
+
+## Repositories
+- GitHub: https://github.com/Orangebl00d/npl-lineup-sheet
+
+## Hosting
+- GitHub Pages (main branch, root): https://orangebl00d.github.io/npl-lineup-sheet/
+
+## Backend
+- None. Static single page (index.html). State autosaves to the browser's localStorage only.
+- PDF generated client-side with jsPDF 2.5.1 (cdnjs).
+
+## Environment Variables Required
+- None
+
+## Notes
+- Source: "LINEUP SHEET- NPL  SPRING 2026.pdf" (National Padel League). Logo extracted from that PDF (npl-logo.png).
+- PDF output mirrors the paper sheet layout; signatures are recolored to black ink for the PDF.

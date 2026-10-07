@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NPL Lineup Sheet</title>
+<meta name="description" content="USA Team League Spring 2026 lineup sheet. Fill it out on your phone, sign, and share the PDF.">
+<meta name="theme-color" content="#0b0b0c">
+<link rel="icon" href="npl-logo.png">
+<link rel="apple-touch-icon" href="npl-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f3f2ee;
+    --card: #ffffff;
+    --ink: #0b0b0c;
+    --muted: #6b6a66;
+    --line: #dcdad3;
+    --field: #faf9f6;
+    --accent: #c8f031;
+    --accent-ink: #0b0b0c;
+    --away: #2f5bea;
+    --home: #e0482b;
+    --focus: #0b0b0c;
+    --logo-filter: none;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0e0e10;
+      --card: #18181b;
+      --ink: #f4f4f2;
+      --muted: #9a9a96;
+      --line: #2c2c31;
+      --field: #111114;
+      --accent: #c8f031;
+      --accent-ink: #0b0b0c;
+      --away: #7d9bff;
+      --home: #ff7a5c;
+      --focus: #f4f4f2;
+      --logo-filter: invert(1);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0e0e10; --card: #18181b; --ink: #f4f4f2; --muted: #9a9a96; --line: #2c2c31;
+    --field: #111114; --accent: #c8f031; --accent-ink: #0b0b0c; --away: #7d9bff; --home: #ff7a5c;
+    --focus: #f4f4f2; --logo-filter: invert(1);
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Archivo", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 1.4;
+    padding-bottom: calc(96px + env(safe-area-inset-bottom));
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+
+  header.top { text-align: center; padding: 28px 0 8px; }
+  header.top img { width: 132px; height: auto; filter: var(--logo-filter); }
+  header.top h1 {
+    margin: 14px 0 2px; font-weight: 900; font-size: clamp(22px, 5.6vw, 32px);
+    letter-spacing: -0.01em; text-transform: uppercase;
+  }
+  header.top .sub {
+    display: inline-block; font-weight: 800; letter-spacing: 0.14em; font-size: 13px;
+    text-transform: uppercase; color: var(--muted);
+  }
+  .notice {
+    margin: 18px 0 0; font-size: 14px; color: var(--muted); text-align: center;
+  }
+
+  section.card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+    padding: 18px 16px 16px; margin-top: 16px;
+  }
+  .card h2 {
+    margin: 0 0 14px; font-size: 13px; font-weight: 800; letter-spacing: 0.14em;
+    text-transform: uppercase; display: flex; align-items: center; gap: 10px;
+  }
+  .card h2 .pill {
+    margin-left: auto; font-size: 12px; letter-spacing: 0.04em; font-weight: 700;
+    padding: 4px 10px; border-radius: 999px; background: var(--field); border: 1px solid var(--line);
+    color: var(--muted); text-transform: none; white-space: nowrap;
+  }
+  .card h2 .pill.away { color: var(--away); border-color: color-mix(in srgb, var(--away) 40%, var(--line)); }
+  .card h2 .pill.home { color: var(--home); border-color: color-mix(in srgb, var(--home) 40%, var(--line)); }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 14px; }
+  .grid.three { grid-template-columns: 1.3fr 1fr 1fr; }
+  .span-2 { grid-column: span 2; }
+  @media (max-width: 560px) {
+    .grid, .grid.three { grid-template-columns: 1fr; }
+    .span-2 { grid-column: auto; }
+  }
+
+  label.f { display: block; }
+  label.f > span {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 11.5px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 6px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex: none; }
+  .dot.away { background: var(--away); }
+  .dot.home { background: var(--home); }
+
+  input[type="text"], input[type="datetime-local"] {
+    width: 100%; font: inherit; font-size: 16px; font-weight: 500; color: var(--ink);
+    background: var(--field); border: 1px solid var(--line); border-radius: 10px;
+    padding: 12px 12px; min-height: 46px; outline: none; -webkit-appearance: none; appearance: none;
+  }
+  input::placeholder { color: color-mix(in srgb, var(--muted) 70%, transparent); }
+  input:focus-visible { border-color: var(--focus); box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 15%, transparent); }
+
+  .side { border-radius: 12px; padding: 12px; border: 1px dashed var(--line); }
+  .side h3 {
+    margin: 0 0 10px; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 800;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .side.away h3 { color: var(--away); }
+  .side.home h3 { color: var(--home); }
+  .side .stack { display: grid; gap: 10px; }
+
+  .winner { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .winner button {
+    font: inherit; font-weight: 700; font-size: 14px; min-height: 46px; border-radius: 10px; cursor: pointer;
+    border: 1px solid var(--line); background: var(--field); color: var(--ink);
+    padding: 8px 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .winner button[aria-pressed="true"].away { background: var(--away); border-color: var(--away); color: #fff; }
+  .winner button[aria-pressed="true"].home { background: var(--home); border-color: var(--home); color: #fff; }
+
+  .tally {
+    display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 16px;
+    font-weight: 900; font-size: 18px; text-transform: uppercase;
+  }
+  .tally .n { font-size: 34px; font-variant-numeric: tabular-nums; }
+  .tally .a { color: var(--away); } .tally .h { color: var(--home); }
+  .tally .lbl { font-size: 12px; letter-spacing: 0.12em; color: var(--muted); display: block; font-weight: 800; }
+  .tally .col { text-align: center; min-width: 0; }
+  .tally .name { font-size: 13px; max-width: 34vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; }
+
+  .sig { position: relative; }
+  .sig canvas {
+    display: block; width: 100%; height: 150px; border-radius: 10px; touch-action: none;
+    background: var(--field); border: 1px solid var(--line); cursor: crosshair;
+  }
+  .sig .hint {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-size: 14px; pointer-events: none; padding-top: 22px;
+  }
+  .sig .hint.hide { display: none; }
+  .sig .clear {
+    position: absolute; top: 34px; right: 8px; font: inherit; font-size: 12px; font-weight: 700;
+    background: var(--card); color: var(--muted); border: 1px solid var(--line); border-radius: 999px;
+    padding: 4px 10px; cursor: pointer;
+  }
+
+  .info { font-size: 13.5px; color: var(--muted); margin-top: 16px; }
+  .info a { color: var(--ink); }
+  footer.small { text-align: center; font-size: 12px; color: var(--muted); margin: 24px 0 8px; }
+  footer.small button { font: inherit; color: var(--muted); background: none; border: 0; text-decoration: underline; cursor: pointer; }
+
+  .bar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid var(--line);
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+  }
+  .bar .inner { max-width: 760px; margin: 0 auto; display: flex; gap: 8px; }
+  .btn {
+    font: inherit; font-weight: 800; font-size: 15px; min-height: 50px; border-radius: 12px; cursor: pointer;
+    border: 1px solid var(--line); background: var(--card); color: var(--ink); padding: 0 14px;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap;
+  }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); flex: 1; }
+  .btn svg { width: 18px; height: 18px; flex: none; }
+  @media (max-width: 380px) { .btn .t-opt { display: none; } }
+
+  .toast {
+    position: fixed; left: 50%; bottom: calc(84px + env(safe-area-inset-bottom)); transform: translateX(-50%) translateY(10px);
+    background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 999px; font-weight: 700; font-size: 14px;
+    opacity: 0; transition: opacity .2s, transform .2s; pointer-events: none; z-index: 20; max-width: calc(100% - 32px);
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .saved { font-size: 12px; color: var(--muted); text-align: center; margin-top: 10px; min-height: 1em; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <img src="npl-logo.png" alt="National Padel League">
+    <h1>USA Team League Spring 2026</h1>
+    <div class="sub">Lineup Sheet</div>
+    <p class="notice">Captains exchange lineups 30 minutes before the match. Record results when play finishes.</p>
+  </header>
+
+  <form id="sheet" autocomplete="off" onsubmit="return false">
+    <section class="card">
+      <h2>Match day</h2>
+      <div class="grid">
+        <label class="f"><span><i class="dot away"></i>Away team</span><input type="text" name="awayTeam" placeholder="Team name"></label>
+        <label class="f"><span><i class="dot home"></i>Home team</span><input type="text" name="homeTeam" placeholder="Team name"></label>
+        <label class="f"><span><i class="dot away"></i>Away captain</span><input type="text" name="awayCaptain" placeholder="Full name" autocapitalize="words"></label>
+        <label class="f"><span><i class="dot home"></i>Home captain</span><input type="text" name="homeCaptain" placeholder="Full name" autocapitalize="words"></label>
+      </div>
+      <div class="grid three" style="margin-top:12px">
+        <label class="f"><span>Date &amp; time</span><input type="datetime-local" name="dateTime"></label>
+        <label class="f"><span>Category</span><input type="text" name="category" placeholder="e.g. Men's 3.5"></label>
+        <label class="f"><span>Venue</span><input type="text" name="venue" placeholder="Club / courts"></label>
+      </div>
+    </section>
+
+    <div id="matches"></div>
+
+    <section class="card">
+      <h2>Captains' signatures</h2>
+      <div class="grid">
+        <div class="sig">
+          <label class="f"><span><i class="dot home"></i>Home</span></label>
+          <canvas id="sig-home" aria-label="Home captain signature pad"></canvas>
+          <div class="hint" data-hint="home">Sign here</div>
+          <button type="button" class="clear" data-clear="home">Clear</button>
+        </div>
+        <div class="sig">
+          <label class="f"><span><i class="dot away"></i>Visitor</span></label>
+          <canvas id="sig-away" aria-label="Visitor captain signature pad"></canvas>
+          <div class="hint" data-hint="away">Sign here</div>
+          <button type="button" class="clear" data-clear="away">Clear</button>
+        </div>
+      </div>
+      <div class="tally" id="tally" aria-live="polite"></div>
+      <p class="info"><strong>Questions:</strong> <a href="mailto:Info@nationalpadelleague.us">Info@nationalpadelleague.us</a></p>
+    </section>
+  </form>
+
+  <div class="saved" id="saved"></div>
+  <footer class="small">Saved on this device as you type. <button type="button" id="reset">Start a new sheet</button></footer>
+</div>
+
+<div class="bar">
+  <div class="inner">
+    <button type="button" class="btn" id="copy" title="Copy as text">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+      <span class="t-opt">Copy text</span>
+    </button>
+    <button type="button" class="btn" id="download" title="Download PDF">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+      <span class="t-opt">PDF</span>
+    </button>
+    <button type="button" class="btn primary" id="share">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><path d="m16 6-4-4-4 4"/><path d="M12 2v13"/></svg>
+      Share lineup
+    </button>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+(function () {
+  const KEY = 'npl-lineup-spring-2026-v1';
+  const MATCHES = 3;
+  const form = document.getElementById('sheet');
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+
+  // ---------- build match cards ----------
+  const mWrap = document.getElementById('matches');
+  for (let i = 1; i <= MATCHES; i++) {
+    const s = document.createElement('section');
+    s.className = 'card';
+    s.innerHTML = `
+      <h2>Match ${i}<span class="pill" data-pill="${i}">No result</span></h2>
+      <div class="grid">
+        <div class="side away">
+          <h3><i class="dot away"></i><span data-teamlabel="away">Away</span></h3>
+          <div class="stack">
+            <label class="f"><span>Player 1</span><input type="text" name="m${i}_away1" placeholder="Away player 1" autocapitalize="words"></label>
+            <label class="f"><span>Player 2</span><input type="text" name="m${i}_away2" placeholder="Away player 2" autocapitalize="words"></label>
+          </div>
+        </div>
+        <div class="side home">
+          <h3><i class="dot home"></i><span data-teamlabel="home">Home</span></h3>
+          <div class="stack">
+            <label class="f"><span>Player 1</span><input type="text" name="m${i}_home1" placeholder="Home player 1" autocapitalize="words"></label>
+            <label class="f"><span>Player 2</span><input type="text" name="m${i}_home2" placeholder="Home player 2" autocapitalize="words"></label>
+          </div>
+        </div>
+        <label class="f"><span>Score</span><input type="text" name="m${i}_score" placeholder="e.g. 6-4, 3-6, 7-5" inputmode="text"></label>
+        <div class="f"><label class="f"><span>Winning team</span></label>
+          <div class="winner" role="group" aria-label="Match ${i} winning team">
+            <button type="button" class="away" data-win="${i}" data-side="away" aria-pressed="false">Away</button>
+            <button type="button" class="home" data-win="${i}" data-side="home" aria-pressed="false">Home</button>
+          </div>
+        </div>
+      </div>`;
+    mWrap.appendChild(s);
+  }
+
+  // ---------- state ----------
+  let state = { fields: {}, winners: {}, sigs: { home: null, away: null } };
+  function load() {
+    try { const raw = localStorage.getItem(KEY); if (raw) state = Object.assign(state, JSON.parse(raw)); } catch (e) {}
+  }
+  let saveTimer;
+  function save() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => {
+      try {
+        localStorage.setItem(KEY, JSON.stringify(state));
+        $('#saved').textContent = 'Saved ' + new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+      } catch (e) { $('#saved').textContent = ''; }
+    }, 250);
+  }
+
+  function teamName(side) {
+    const v = (state.fields[side === 'away' ? 'awayTeam' : 'homeTeam'] || '').trim();
+    return v || (side === 'away' ? 'Away' : 'Home');
+  }
+
+  function render() {
+    $$('[data-teamlabel]').forEach(el => el.textContent = teamName(el.dataset.teamlabel));
+    $$('[data-win]').forEach(b => {
+      const side = b.dataset.side;
+      b.textContent = teamName(side);
+      b.setAttribute('aria-pressed', state.winners[b.dataset.win] === side ? 'true' : 'false');
+    });
+    let a = 0, h = 0;
+    for (let i = 1; i <= MATCHES; i++) {
+      const w = state.winners[i];
+      const pill = $(`[data-pill="${i}"]`);
+      pill.className = 'pill' + (w ? ' ' + w : '');
+      pill.textContent = w ? teamName(w) + ' win' : 'No result';
+      if (w === 'away') a++; if (w === 'home') h++;
+    }
+    $('#tally').innerHTML = (a + h) ? `
+      <div class="col"><span class="lbl">Away</span><span class="name a">${esc(teamName('away'))}</span><span class="n a">${a}</span></div>
+      <div class="n" style="color:var(--muted)">–</div>
+      <div class="col"><span class="lbl">Home</span><span class="name h">${esc(teamName('home'))}</span><span class="n h">${h}</span></div>` : '';
+  }
+  function esc(s) { return s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+
+  // ---------- inputs ----------
+  load();
+  $$('input', form).forEach(inp => {
+    if (state.fields[inp.name] != null) inp.value = state.fields[inp.name];
+    inp.addEventListener('input', () => { state.fields[inp.name] = inp.value; render(); save(); });
+  });
+  mWrap.addEventListener('click', e => {
+    const b = e.target.closest('[data-win]'); if (!b) return;
+    const i = b.dataset.win, side = b.dataset.side;
+    state.winners[i] = state.winners[i] === side ? null : side;
+    render(); save();
+  });
+
+  // ---------- signature pads ----------
+  const pads = {};
+  function setupPad(side) {
+    const canvas = document.getElementById('sig-' + side);
+    const ctx = canvas.getContext('2d');
+    const hint = $(`[data-hint="${side}"]`);
+    let drawing = false, last = null, dirty = !!state.sigs[side];
+
+    function size() {
+      const r = canvas.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+      canvas.width = Math.round(r.width * dpr); canvas.height = Math.round(r.height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.lineWidth = 2.4;
+      ctx.strokeStyle = getComputedStyle(document.body).color;
+      if (state.sigs[side]) {
+        const img = new Image();
+        img.onload = () => { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(img, 0, 0, canvas.width, canvas.height); ctx.restore(); };
+        img.src = state.sigs[side].screen || state.sigs[side];
+      }
+      hint.classList.toggle('hide', dirty);
+    }
+    function pos(e) { const r = canvas.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
+    canvas.addEventListener('pointerdown', e => {
+      drawing = true; last = pos(e); canvas.setPointerCapture(e.pointerId);
+      ctx.beginPath(); ctx.arc(last.x, last.y, 1.1, 0, Math.PI * 2); ctx.fillStyle = ctx.strokeStyle; ctx.fill();
+      dirty = true; hint.classList.add('hide'); e.preventDefault();
+    });
+    canvas.addEventListener('pointermove', e => {
+      if (!drawing) return;
+      const p = pos(e); ctx.beginPath(); ctx.moveTo(last.x, last.y); ctx.lineTo(p.x, p.y); ctx.stroke(); last = p;
+      e.preventDefault();
+    });
+    const end = () => {
+      if (!drawing) return; drawing = false;
+      state.sigs[side] = { screen: canvas.toDataURL('image/png'), ink: inkVersion(canvas) };
+      save();
+    };
+    canvas.addEventListener('pointerup', end); canvas.addEventListener('pointercancel', end); canvas.addEventListener('pointerleave', end);
+    $(`[data-clear="${side}"]`).addEventListener('click', () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height); state.sigs[side] = null; dirty = false; hint.classList.remove('hide'); save();
+    });
+    pads[side] = { size, clear() { ctx.clearRect(0, 0, canvas.width, canvas.height); dirty = false; hint.classList.remove('hide'); } };
+    size();
+  }
+  // black-ink copy of a signature for the PDF (screen ink may be light in dark mode)
+  function inkVersion(canvas) {
+    const k = Math.min(1, 600 / canvas.width);
+    const c = document.createElement('canvas'); c.width = Math.round(canvas.width * k); c.height = Math.round(canvas.height * k);
+    const x = c.getContext('2d'); x.drawImage(canvas, 0, 0, c.width, c.height);
+    x.globalCompositeOperation = 'source-in'; x.fillStyle = '#000'; x.fillRect(0, 0, c.width, c.height);
+    return c.toDataURL('image/png');
+  }
+  // migrate older plain-string sigs
+  ['home', 'away'].forEach(s => { if (typeof state.sigs[s] === 'string') state.sigs[s] = { screen: state.sigs[s], ink: state.sigs[s] }; });
+  setupPad('home'); setupPad('away');
+  let rz; window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { pads.home.size(); pads.away.size(); }, 150); });
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', () => { pads.home.size(); pads.away.size(); });
+
+  render();
+
+  // ---------- output helpers ----------
+  const f = n => (state.fields[n] || '').trim();
+  function fmtDate() {
+    const v = f('dateTime'); if (!v) return '';
+    const d = new Date(v); if (isNaN(d)) return v;
+    return d.toLocaleString([], { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit' });
+  }
+  function winnerName(i) { const w = state.winners[i]; return w ? teamName(w) : ''; }
+  function fileName() {
+    const slug = s => s.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '');
+    const parts = ['NPL-Lineup', slug(f('awayTeam')), 'at', slug(f('homeTeam'))].filter(Boolean);
+    const d = f('dateTime').slice(0, 10);
+    return (parts.length > 2 ? parts.join('_') : 'NPL-Lineup') + (d ? '_' + d : '') + '.pdf';
+  }
+
+  function asText() {
+    const L = [];
+    L.push('USA TEAM LEAGUE SPRING 2026 — LINEUP SHEET');
+    L.push(`Away: ${f('awayTeam') || '—'} (Capt. ${f('awayCaptain') || '—'})`);
+    L.push(`Home: ${f('homeTeam') || '—'} (Capt. ${f('homeCaptain') || '—'})`);
+    L.push(`Date & time: ${fmtDate() || '—'} | Category: ${f('category') || '—'} | Venue: ${f('venue') || '—'}`);
+    for (let i = 1; i <= MATCHES; i++) {
+      L.push('');
+      L.push(`MATCH ${i}`);
+      L.push(`  Away: ${f(`m${i}_away1`) || '—'} / ${f(`m${i}_away2`) || '—'}`);
+      L.push(`  Home: ${f(`m${i}_home1`) || '—'} / ${f(`m${i}_home2`) || '—'}`);
+      if (f(`m${i}_score`) || state.winners[i]) L.push(`  Score: ${f(`m${i}_score`) || '—'} | Winner: ${winnerName(i) || '—'}`);
+    }
+    return L.join('\n');
+  }
+
+  // ---------- PDF (mirrors the paper sheet) ----------
+  let logoData = null;
+  function loadLogo() {
+    if (logoData) return Promise.resolve(logoData);
+    return new Promise(res => {
+      const img = new Image();
+      img.onload = () => {
+        const c = document.createElement('canvas'); c.width = img.naturalWidth; c.height = img.naturalHeight;
+        c.getContext('2d').drawImage(img, 0, 0); logoData = { url: c.toDataURL('image/png'), w: c.width, h: c.height }; res(logoData);
+      };
+      img.onerror = () => res(null);
+      img.src = 'npl-logo.png';
+    });
+  }
+
+  async function buildPdf() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: 'pt', format: 'letter', compress: true });
+    const W = 612, L = 40, R = 572;
+    const logo = await loadLogo();
+    if (logo) { const lw = 118, lh = lw * logo.h / logo.w; doc.addImage(logo.url, 'PNG', (W - lw) / 2, 30, lw, lh); }
+
+    const under = (txt, y, size) => {
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(size);
+      const tw = doc.getTextWidth(txt); const x = (W - tw) / 2;
+      doc.text(txt, x, y); doc.setLineWidth(size > 16 ? 1.4 : 1); doc.line(x, y + 3, x + tw, y + 3);
+    };
+    under('USA TEAM LEAGUE SPRING 2026', 136, 24);
+    under('LINEUP SHEET', 164, 13);
+
+    function field(label, value, x, y, end, opts = {}) {
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(opts.labelSize || 10.5); doc.setTextColor(0);
+      doc.text(label, x, y);
+      const ls = x + doc.getTextWidth(label) + 4;
+      doc.setLineWidth(0.6); doc.line(ls, y + 2.5, end, y + 2.5);
+      if (value) {
+        doc.setFont('helvetica', 'normal');
+        let size = 11; const max = end - ls - 6;
+        doc.setFontSize(size);
+        while (doc.getTextWidth(value) > max && size > 7) { size -= 0.5; doc.setFontSize(size); }
+        let v = value; while (doc.getTextWidth(v) > max && v.length > 1) v = v.slice(0, -2) + '…';
+        doc.text(v, ls + 4, y - 1);
+      }
+    }
+    const C2 = 314;
+    let y = 200;
+    field('AWAY TEAM:', f('awayTeam'), L + 6, y, 296); field('HOME TEAM:', f('homeTeam'), C2, y, R);
+    y += 28;
+    field('AWAY CAPTAIN:', f('awayCaptain'), L + 6, y, 296); field('HOME CAPTAIN:', f('homeCaptain'), C2, y, R);
+    y += 28;
+    field('DATE & TIME:', fmtDate(), L + 6, y, 262); field('CATEGORY:', f('category'), 272, y, 420); field('VENUE:', f('venue'), 430, y, R);
+
+    y += 34;
+    for (let i = 1; i <= MATCHES; i++) {
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(10.5);
+      const h = `MATCH ${i}:`; doc.text(h, L, y); doc.setLineWidth(0.8); doc.line(L, y + 2.5, L + doc.getTextWidth(h), y + 2.5);
+      y += 24;
+      field('AWAY PLAYER 1:', f(`m${i}_away1`), L, y, 290); field('AWAY PLAYER 2:', f(`m${i}_away2`), 306, y, R);
+      y += 24;
+      field('HOME PLAYER 1:', f(`m${i}_home1`), L, y, 290); field('HOME PLAYER 2:', f(`m${i}_home2`), 306, y, R);
+      y += 24;
+      field('SCORE:', f(`m${i}_score`), L, y, 290); field('WINNING TEAM:', winnerName(i), 306, y, R);
+      y += 30;
+    }
+
+    // team result line (only when results are recorded)
+    let a = 0, hm = 0; for (let i = 1; i <= MATCHES; i++) { if (state.winners[i] === 'away') a++; if (state.winners[i] === 'home') hm++; }
+    if (a + hm) {
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(10.5);
+      doc.text(`MATCHES WON:  ${teamName('away')} ${a}  –  ${hm} ${teamName('home')}`, L, y - 4);
+      y += 14;
+    }
+
+    doc.setFont('helvetica', 'bolditalic'); doc.setFontSize(9.5);
+    doc.text('CAPTAINS’ SIGNATURES:', L + 8, y + 2);
+    y += 46;
+    doc.setFont('helvetica', 'bolditalic'); doc.setFontSize(12);
+    doc.text('HOME:', L + 8, y); const hx = L + 8 + doc.getTextWidth('HOME:') + 6;
+    doc.setLineWidth(0.6); doc.line(hx, y + 3, 280, y + 3);
+    doc.text('VISITOR:', 340, y); const vx = 340 + doc.getTextWidth('VISITOR:') + 6;
+    doc.line(vx, y + 3, R, y + 3);
+    const sigH = 42;
+    const placeSig = (sig, x0, x1) => {
+      if (!sig || !sig.ink) return;
+      const p = doc.getImageProperties(sig.ink), ar = p.width / p.height;
+      let h = sigH, w = h * ar; const maxW = x1 - x0 - 4;
+      if (w > maxW) { w = maxW; h = w / ar; }
+      doc.addImage(sig.ink, 'PNG', x0 + 2, y + 2 - h, w, h);
+    };
+    placeSig(state.sigs.home, hx, 280); placeSig(state.sigs.away, vx, R);
+
+    y += 26;
+    const lead = (label, body, size) => {
+      doc.setFont('times', 'bold'); doc.setFontSize(size); doc.text(label, L + 8, y);
+      const off = doc.getTextWidth(label + ' ');
+      doc.setFont('times', 'normal'); doc.text(body, L + 8 + off, y);
+    };
+    lead('Important Information:', 'Captains must exchange lineups 30 minutes before the match. After a match is completed, please record the results.', 7.5);
+    y += 13;
+    lead('Questions:', 'Info@nationalpadelleague.us', 9.5);
+    return doc;
+  }
+
+  // ---------- actions ----------
+  const toast = msg => { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), 2200); };
+
+  $('#download').addEventListener('click', async () => {
+    try { const doc = await buildPdf(); doc.save(fileName()); toast('PDF downloaded'); }
+    catch (e) { console.error(e); toast('Could not build the PDF'); }
+  });
+
+  $('#share').addEventListener('click', async () => {
+    try {
+      const doc = await buildPdf();
+      const file = new File([doc.output('blob')], fileName(), { type: 'application/pdf' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: 'NPL Lineup Sheet', text: asText() });
+      } else {
+        doc.save(fileName()); toast('Sharing not supported here, PDF downloaded');
+      }
+    } catch (e) { if (e && e.name !== 'AbortError') { console.error(e); toast('Could not share'); } }
+  });
+
+  $('#copy').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(asText()); toast('Lineup copied'); }
+    catch (e) { toast('Copy failed'); }
+  });
+
+  $('#reset').addEventListener('click', () => {
+    if (!confirm('Clear every field and both signatures?')) return;
+    state = { fields: {}, winners: {}, sigs: { home: null, away: null } };
+    $$('input', form).forEach(i => i.value = '');
+    pads.home.clear(); pads.away.clear();
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    $('#saved').textContent = ''; render(); window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+</script>
+</body>
+</html>
